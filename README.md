@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Study project of framework Nest.js.
 
 ## Installation
 
@@ -58,16 +58,18 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Tecnologies 
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### ORM 
 
-## Stay in touch
+- Drizzle - <a href="https://orm.drizzle.team/">https://orm.drizzle.team/</a>
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Why Drizzle?
 
-## License
+Drizzle its a good orm small and simple aplications, and this project is it. 
 
-Nest is [MIT licensed](LICENSE).
+
+## Author
+
+- Author - <a href="https://www.linkedin.com/in/laura-moraes-20912114b/">Laura Moraes</a>
+
