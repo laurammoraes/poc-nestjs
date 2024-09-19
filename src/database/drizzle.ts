@@ -1,5 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+import * as schema from './schemas/schema';
 
 export async  function connectOrm() {
     try {
@@ -11,9 +13,11 @@ export async  function connectOrm() {
             database: process.env.DB_DATABASE,
         });
 
-        const db = drizzle(pool);
+        const db = drizzle(pool, { schema });
 
-        return 'ok'
+        await migrate(db, { migrationsFolder: "migrations" });
+
+        return 'sucess'
     } catch (error) {
         return error
     }
