@@ -58,18 +58,26 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Tecnologies 
+## When you make commits
 
-### ORM 
+```bash
+# Lint and autofix with eslint
+$ npm run lint
+
+# Format with prettier
+$ npm run format
+```
+
+## Tecnologies
+
+### ORM
 
 - Drizzle - <a href="https://orm.drizzle.team/">https://orm.drizzle.team/</a>
 
 Why Drizzle?
 
-Drizzle its a good orm small and simple aplications, and this project is it. 
-
+Drizzle its a good orm small and simple aplications, and this project is it.
 
 ## Author
 
 - Author - <a href="https://www.linkedin.com/in/laura-moraes-20912114b/">Laura Moraes</a>
-
