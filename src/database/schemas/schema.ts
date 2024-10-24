@@ -3,10 +3,10 @@ import {  integer, pgTable, serial,  varchar, timestamp } from 'drizzle-orm/pg-c
 
 
 export const users = pgTable('users', {
-  id: serial('id').primaryKey(),
+  id: serial('id').primaryKey().notNull(),
   name: varchar('name', { length: 256 }),
   email: varchar('email', { length: 256}), 
-  phone: varchar('phone', { length: 25}),
+  phone: varchar('phone', { length: 25}).unique().notNull(),
   dateOfBirth: varchar('date_of_birth', {length:25}),
   address: varchar('address', {length:256}),
   city: varchar('city', { length: 256}),
@@ -34,7 +34,7 @@ export const prescriptions = pgTable('prescriptions', {
 })
 
 export const medications = pgTable('medications', {
-  id: serial('id').primaryKey(),
+  id: serial('id').primaryKey().notNull(),
   name: varchar('name', {length: 256}),
   dosage: varchar('dosage', {length: 256}),
   brandName: varchar('brand_name', {length: 256}),
