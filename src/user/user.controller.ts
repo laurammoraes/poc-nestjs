@@ -1,31 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+import { Response } from 'express'; 
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-
-  //Get user by id 
-
-  //Get all users of my company
-
-  //Update one user 
-
-  //Update many users 
-
-  //Delete one user 
-
-  //Delete many users
-
-  //Create one user 
-
-  //Create many users 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Res() response: Response) {
+    try {
+      const create = await this.userService.create(createUserDto)
+
+      return response.status(200).send(create.message)
+    } catch (error) {
+      console.log(error)
+      return response.status(500).send('Internal server error')
+    }
+    
   }
 
   @Get()
