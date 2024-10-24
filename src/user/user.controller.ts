@@ -4,54 +4,95 @@ import {
   Post,
   Body,
   Patch,
-  Param,
   Delete,
+  Res,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+import { response, Response } from 'express';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  //Get user by id
-
-  //Get all users of my company
-
-  //Update one user
-
-  //Update many users
-
-  //Delete one user
-
-  //Delete many users
-
-  //Create one user
-
-  //Create many users
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(
+    @Body() createUserDto: CreateUserDto,
+    @Res() response: Response,
+  ) {
+    try {
+      const create = await this.userService.create(createUserDto);
+
+      return response.status(200).send(create.message);
+    } catch (error) {
+      console.log(error);
+      return response.status(500).send('Internal server error');
+    }
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll(@Res() response: Response) {
+    try {
+      const res = await this.userService.findAll();
+
+      return response.status(200).json(res);
+    } catch (error) {
+      console.log(error);
+
+      return response.status(500).send('Internal server error');
+    }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Get('/find-by-id')
+  async findOneById(@Query('id') id: string, @Res() response: Response) {
+    try {
+      const res = await this.userService.findById(+id);
+
+      return response.status(200).json(res);
+    } catch (error) {
+      console.log(error);
+      return response.status(500).send('Internal server error');
+    }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Get('/find-by-phone')
+  async findOne(@Query('phone') phone: string, @Res() response: Response) {
+    try {
+      const res = await this.userService.findByPhone(phone);
+
+      return response.status(200).json(res);
+    } catch (error) {
+      console.log(error);
+      return response.status(500).send('Internal server error');
+    }
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Patch('/update-by-phone')
+  async update(
+    @Query('phone') phone: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Res() response: Response,
+  ) {
+    try {
+      await this.userService.update(phone, updateUserDto);
+
+      return response.status(200).send('User updated');
+    } catch (error) {
+      console.log(error);
+      return response.status(500).send('Internal server error');
+    }
+  }
+
+  @Delete('/delete-by-phone')
+  async remove(@Query('phone') phone: string, @Res() response: Response) {
+    try {
+      await this.userService.removeByPhone(phone);
+    } catch (error) {
+      console.log(error);
+      return response.status(500).send('Internal server error');
+    }
   }
 }

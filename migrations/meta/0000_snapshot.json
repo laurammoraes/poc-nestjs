@@ -1,5 +1,5 @@
 {
-  "id": "22d9b96f-f7a0-4234-8a47-74844ca0d054",
+  "id": "a972f9ba-7304-4082-a77a-aa13ff59d8d9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -302,7 +302,7 @@
           "name": "phone",
           "type": "varchar(25)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "date_of_birth": {
           "name": "date_of_birth",
@@ -351,7 +351,15 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_phone_unique": {
+          "name": "users_phone_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "phone"
+          ]
+        }
+      }
     }
   },
   "enums": {},

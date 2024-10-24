@@ -3,21 +3,24 @@ import { Pool } from 'pg';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import * as schema from './schemas/schema';
 
+let dbInstance: ReturnType<typeof drizzle>;
+
 export async function connectOrm() {
   try {
-    console.log('aqui');
-    const pool = new Pool({
-      connectionString: process.env.DATABASE_URL_LOCAL, // Para usar a URL completa
-      ssl: {
-        rejectUnauthorized: false, // Se necessário, desativa a verificação de certificados SSL
-      },
-    });
+    if (!dbInstance) {
+      const pool = new Pool({
+        connectionString: process.env.DATABASE_URL_LOCAL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      });
 
-    const db = drizzle(pool, { schema });
+      dbInstance = drizzle(pool, { schema });
 
-    await migrate(db, { migrationsFolder: 'migrations' });
+      await migrate(dbInstance, { migrationsFolder: 'migrations' });
+    }
 
-    return 'success';
+    return dbInstance;
   } catch (error) {
     return error;
   }
