@@ -77,6 +77,7 @@ export class UserController {
     @Res() response: Response,
   ) {
     try {
+      
       await this.userService.update(phone, updateUserDto);
 
       return response.status(200).send('User updated');
@@ -90,6 +91,7 @@ export class UserController {
   async remove(@Query('phone') phone: string, @Res() response: Response) {
     try {
       await this.userService.removeByPhone(phone);
+      return response.status(200).send('User deleted sucessfully')
     } catch (error) {
       console.log(error);
       return response.status(500).send('Internal server error');

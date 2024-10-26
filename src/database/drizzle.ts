@@ -6,8 +6,8 @@ import * as schema from './schemas/schema';
 let dbInstance: ReturnType<typeof drizzle>;
 
 export async function connectOrm() {
-  try {
-    if (!dbInstance) {
+  if (!dbInstance) {
+    try {
       const pool = new Pool({
         connectionString: process.env.DATABASE_URL_LOCAL,
         ssl: {
@@ -16,12 +16,11 @@ export async function connectOrm() {
       });
 
       dbInstance = drizzle(pool, { schema });
-
       await migrate(dbInstance, { migrationsFolder: 'migrations' });
+    } catch (error) {
+      throw new Error(`Database connection failed: ${error.message}`);
     }
-
-    return dbInstance;
-  } catch (error) {
-    return error;
   }
+
+  return dbInstance;
 }
