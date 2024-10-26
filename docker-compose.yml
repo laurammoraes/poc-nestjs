@@ -1,0 +1,18 @@
+services:
+  postgresql:
+    container_name: poc-nestjs-postgresql
+    environment:
+      POSTGRES_DB: poc-nestjs-postgresql
+      POSTGRES_USER: poc-nestjs-postgresql
+      POSTGRES_PASSWORD: poc-nestjs-postgresql
+    image: postgres:latest
+    ports:
+      - '5444:5432'
+    volumes:
+      - poc-nestjs-postgresql-postgresql:/var/lib/postgresql/data
+
+version: '3'
+
+volumes:
+  poc-nestjs-postgresql-postgresql:
+    driver: local
