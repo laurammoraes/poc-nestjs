@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from "class-validator";
+import {  IsString } from "class-validator";
 
 type TypeMedication = 'comprimido' | 'liquido'
 

@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { connectOrm } from './database/drizzle';
 import { MedicationsModule } from './medications/medications.module';
 import { PrescriptionsModule } from './prescriptions/prescriptions.module';
+import { TreatmentTrackingsModule } from './treatment_trackings/treatment_trackings.module';
+import { IaModule } from './ia/ia.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { PrescriptionsModule } from './prescriptions/prescriptions.module';
     UserModule,
     MedicationsModule,
     PrescriptionsModule,
+    TreatmentTrackingsModule,
+    IaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
