@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { connectOrm } from './database/drizzle';
 import { MedicationsModule } from './medications/medications.module';
 import { PrescriptionsModule } from './prescriptions/prescriptions.module';
 import { TreatmentTrackingsModule } from './treatment_trackings/treatment_trackings.module';
-import { IaModule } from './ia/ia.module';
 
 @Module({
   imports: [
@@ -18,9 +14,8 @@ import { IaModule } from './ia/ia.module';
     MedicationsModule,
     PrescriptionsModule,
     TreatmentTrackingsModule,
-    IaModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
