@@ -19,11 +19,11 @@ export class BaseService {
         return await this.baseRepository.getById(data, entity)
     }
 
-    async update(data, entity: string){
-        await this.baseRepository.update(data, entity: string)
+    async update(id, data, entity: string){
+        await this.baseRepository.update(id, data, entity)
     }
 
     async delete(data, entity: string){
-        await this.baseRepository.delete(data, entity: string)
+        await this.baseRepository.delete(data, entity)
     }
 }

@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MedicationsModule } from './medications/medications.module';
 import { PrescriptionsModule } from './prescriptions/prescriptions.module';
 import { TreatmentTrackingsModule } from './treatment_trackings/treatment_trackings.module';
+import { BaseModule } from 'src/base/base.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TreatmentTrackingsModule } from './treatment_trackings/treatment_tracki
     MedicationsModule,
     PrescriptionsModule,
     TreatmentTrackingsModule,
+    BaseModule
   ],
   controllers: [],
   providers: [],
