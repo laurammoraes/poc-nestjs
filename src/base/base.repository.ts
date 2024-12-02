@@ -9,7 +9,7 @@ export class BaseRepository extends BaseAbstractRepository<void> {
     }
 
     async create(data, entity){
-        console.log(data, entity)
+        
         await this.db.insert(entity).values(data).execute();
     }
 

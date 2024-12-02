@@ -6,18 +6,18 @@ import { users } from 'src/database/schemas/schema';
 import { and, eq, isNull } from 'drizzle-orm';
 import { GetAllResponseDto } from './dto/get-all-response.dto';
 import { GetResponseDto } from './dto/get-response.dto';
-
-
+import { BaseService } from 'src/base/base.service';
 @Injectable()
 export class UserService {
-  constructor(@Inject('DATABASE_CONNECTION') private db) {}
+  constructor(@Inject('DATABASE_CONNECTION') private db, private readonly baseService: BaseService) {}
 
   async create(createUserDto: CreateUserDto): Promise<ResponseDto> {
     const validatePhone = await this.db
       .select()
       .from(users)
-      .where(and(eq(users.phone, createUserDto.phone),isNull(users.deletedAt)));
-    
+      .where(
+        and(eq(users.phone, createUserDto.phone), isNull(users.deletedAt)),
+      );
 
     if (validatePhone.length > 0) {
       return {
@@ -26,17 +26,16 @@ export class UserService {
       };
     }
 
-    
     await this.db
       .insert(users)
       .values({
-          name: createUserDto.name,
-          email: createUserDto.email,
-          phone: createUserDto.phone, 
-          dateOfBirth: createUserDto.dateOfBirth,
-          address: createUserDto.address,
-          city: createUserDto.city,
-          state: createUserDto.state
+        name: createUserDto.name,
+        email: createUserDto.email,
+        phone: createUserDto.phone,
+        dateOfBirth: createUserDto.dateOfBirth,
+        address: createUserDto.address,
+        city: createUserDto.city,
+        state: createUserDto.state,
       })
       .execute();
 
@@ -47,20 +46,8 @@ export class UserService {
   }
 
   async findAll(): Promise<GetAllResponseDto | ResponseDto> {
-    const res = await this.db
-      .select({
-        id: users.id,
-        name: users.name,
-        email: users.email,
-        phone: users.phone,
-        dateOfBirth: users.dateOfBirth,
-        address: users.address,
-        city: users.city,
-        state: users.state,
-      })
-      .from(users)
-      .where(isNull(users.deletedAt))
-      .execute();
+
+    const res = await this.baseService.getAll(users)
 
     if (res.length === 0) {
       return {
@@ -137,7 +124,6 @@ export class UserService {
     phone: string,
     updateUserDto: UpdateUserDto,
   ): Promise<ResponseDto> {
-    
     const [res] = await this.db
       .select({
         id: users.id,
@@ -152,13 +138,13 @@ export class UserService {
       .from(users)
       .where(and(eq(users.phone, phone), isNull(users.deletedAt)))
       .execute();
-    
-      if(!res){
-        return {
-          status: 500,
-          message: 'User not found',
-        };
-      }
+
+    if (!res) {
+      return {
+        status: 500,
+        message: 'User not found',
+      };
+    }
 
     await this.db
       .update(users)
@@ -168,8 +154,10 @@ export class UserService {
         phone: updateUserDto.phone ? updateUserDto.phone : res.phone,
         city: updateUserDto.city ? updateUserDto.city : res.city,
         state: updateUserDto.state ? updateUserDto.state : res.state,
-        dateOfBirth: updateUserDto.dateOfBirth ? updateUserDto.dateOfBirth :res.dateOfBirth ,
-        updatedAt: new Date()
+        dateOfBirth: updateUserDto.dateOfBirth
+          ? updateUserDto.dateOfBirth
+          : res.dateOfBirth,
+        updatedAt: new Date(),
       })
       .where(and(eq(users.phone, phone), isNull(users.deletedAt)))
       .execute();
@@ -178,8 +166,6 @@ export class UserService {
       status: 200,
       message: 'User updated successfully',
     };
-    
-    
   }
 
   async removeByPhone(phone: string): Promise<ResponseDto> {
