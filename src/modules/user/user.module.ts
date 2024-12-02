@@ -4,6 +4,11 @@ import { UserController } from './user.controller';
 import { connectOrm } from 'src/database/drizzle';
 import { BaseService } from 'src/base/base.service';
 import { BaseRepository } from 'src/base/base.repository';
+import { CreateUser } from './use-cases/create';
+import { UpdateUser } from './use-cases/update';
+import { RemoveUser } from './use-cases/remove';
+import { FindUserById } from './use-cases/findById';
+import { FindAllUsers } from './use-cases/findAll';
 
 @Module({
   controllers: [UserController],
@@ -15,6 +20,6 @@ import { BaseRepository } from 'src/base/base.repository';
         return db;
       },
     },
-    BaseService, BaseRepository],
+    BaseService, BaseRepository, CreateUser, UpdateUser, RemoveUser, FindUserById, FindAllUsers],
 })
 export class UserModule {}
