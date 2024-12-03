@@ -2,7 +2,10 @@ import { BaseService } from "src/base/base.service";
 import { GetAllResponseDto } from "../dto/get-all-response.dto";
 import { ResponseDto } from "src/dto/response.dto";
 import { users } from "src/database/schemas/schema";
+import { Injectable } from "@nestjs/common";
 
+
+@Injectable()
 export class FindAllUsers {
     constructor(private readonly baseService: BaseService) {}
 

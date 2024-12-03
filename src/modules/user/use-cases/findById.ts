@@ -2,7 +2,10 @@ import { BaseService } from "src/base/base.service";
 import { GetResponseDto } from "../dto/get-response.dto";
 import { ResponseDto } from "src/dto/response.dto";
 import { users } from "src/database/schemas/schema";
+import { Injectable } from "@nestjs/common";
 
+
+@Injectable()
 export class FindUserById {
     constructor( private readonly baseService: BaseService) {}
 
