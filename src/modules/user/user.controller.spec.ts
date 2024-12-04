@@ -110,4 +110,30 @@ describe('UserController', () => {
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
+
+  describe('create', () => {
+    it('should create a user', async () => {
+      const result = await controller.create(mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
+    });
+  });
+
+
+  describe('findAll', () => {
+    it('should return an array of users', async () => {
+      const result = await controller.findAll(mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
+    });
+  });
+
+
+  describe('findAll', () => {
+    it('should return an array of users', async () => {
+      const result = await controller.findAll(mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
+    });
+  });
 });
