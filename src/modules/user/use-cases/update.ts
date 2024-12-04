@@ -1,6 +1,6 @@
 import { BaseService } from 'src/base/base.service';
 import { UserService } from '../user.service';
-import { ResponseDto } from 'src/dto/response.dto';
+import { ResponseDto } from 'src/modules/user/dto/response.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { users } from 'src/database/schemas/schema';
 import { Injectable } from '@nestjs/common';

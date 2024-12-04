@@ -17,6 +17,7 @@ import { FindAllUsers } from './use-cases/findAll';
 import { FindUserById } from './use-cases/findById';
 import { RemoveUser } from './use-cases/remove';
 import { UpdateUser } from './use-cases/update';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
@@ -29,6 +30,12 @@ export class UserController {
   ) {}
 
   @Post()
+  @ApiResponse({ status: 200, description: 'User created successfully' })
+  @ApiResponse({
+    status: 409,
+    description: 'Phone number exists in our database',
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async create(
     @Body() createUserDto: CreateUserDto,
     @Res() response: Response,
@@ -48,6 +55,12 @@ export class UserController {
   }
 
   @Get()
+  @ApiResponse({ status: 200, description: 'Return array with users' })
+  @ApiResponse({
+    status: 404,
+    description: 'No user found',
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async findAll(@Res() response: Response) {
     try {
       const res = await this.findAllUsers.execute();
@@ -65,6 +78,12 @@ export class UserController {
   }
 
   @Get('/find-by-id')
+  @ApiResponse({ status: 200, description: 'Return array with user' })
+  @ApiResponse({
+    status: 404,
+    description: 'No user found',
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async findOneById(@Query('id') id: string, @Res() response: Response) {
     try {
       const res = await this.findUserById.execute(+id);
@@ -81,6 +100,12 @@ export class UserController {
   }
 
   @Patch('/update-by-phone')
+  @ApiResponse({ status: 200, description: 'User updated' })
+  @ApiResponse({
+    status: 404,
+    description: 'No user found',
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async update(
     @Query('phone') phone: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -101,6 +126,12 @@ export class UserController {
   }
 
   @Delete('/delete-by-phone')
+  @ApiResponse({ status: 200, description: 'User deleted sucessfully' })
+  @ApiResponse({
+    status: 404,
+    description: 'No user found',
+  })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async remove(@Query('phone') phone: string, @Res() response: Response) {
     try {
       const res = await this.removeUser.execute(phone);
