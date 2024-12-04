@@ -1,14 +1,99 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { response } from 'express';
+import { CreateUser } from './use-cases/create';
+import { FindAllUsers } from './use-cases/findAll';
+import { FindUserById } from './use-cases/findById';
+import { RemoveUser } from './use-cases/remove';
+import { UpdateUser } from './use-cases/update';
+import { Response } from 'express';
 
 describe('UserController', () => {
   let controller: UserController;
 
+  const mockResponse = {
+    status: jest.fn().mockReturnThis(),
+    send: jest.fn(),
+    json: jest.fn(),
+  } as unknown as Response;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [],
+      providers: [
+        {
+          provide: CreateUser,
+          useValue: {
+            execute: jest.fn().mockResolvedValue({
+              status: 200,
+              message: 'User created successfully',
+            }),
+          },
+        },
+        {
+          provide: FindAllUsers,
+          useValue: {
+            execute: jest.fn().mockResolvedValue({
+              status: 200,
+              data: [
+                {
+                  id: 4,
+                  name: 'Laura',
+                  email: 'laurammoraes2@gmail.com',
+                  phone: '19993417478',
+                  dateOfBirth: '02091999',
+                  address: '',
+                  city: '',
+                  state: '',
+                  createdAt: '2024-12-03T21:10:14.461Z',
+                  updatedAt: null,
+                  deletedAt: null,
+                },
+              ],
+            }),
+          },
+        },
+        {
+          provide: FindUserById,
+          useValue: {
+            execute: jest.fn().mockResolvedValue({
+              status: 200,
+              data: [
+                {
+                  id: 4,
+                  name: 'Laura',
+                  email: 'laurammoraes2@gmail.com',
+                  phone: '19993417478',
+                  dateOfBirth: '02091999',
+                  address: '',
+                  city: '',
+                  state: '',
+                  createdAt: '2024-12-03T21:10:14.461Z',
+                  updatedAt: null,
+                  deletedAt: null,
+                },
+              ],
+            }),
+          },
+        },
+        {
+          provide: RemoveUser,
+          useValue: {
+            execute: jest.fn().mockResolvedValue({
+              status: 200,
+              message: 'User deleted sucessfully',
+            }),
+          },
+        },
+        {
+          provide: UpdateUser,
+          useValue: {
+            execute: jest.fn().mockResolvedValue({
+              status: 200,
+              message: 'User updated',
+            }),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<UserController>(UserController);
@@ -19,27 +104,10 @@ describe('UserController', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of cats', async () => {
-      const result = {
-        status: 200,
-        data: [
-          {
-            id: 4,
-            name: 'Laura',
-            email: 'laurammoraes2@gmail.com',
-            phone: '19993417478',
-            dateOfBirth: '02091999',
-            address: '',
-            city: '',
-            state: '',
-            createdAt: '2024-12-03T21:10:14.461Z',
-            updatedAt: null,
-            deletedAt: null,
-          },
-        ],
-      };
-
-      expect(await controller.findAll(response)).toBe(result);
+    it('should return an array of users', async () => {
+      const result = await controller.findAll(mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
     });
   });
 });
