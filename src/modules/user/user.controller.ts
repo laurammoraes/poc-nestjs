@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-
 import { Response } from 'express';
 import { CreateUser } from './use-cases/create';
 import { FindAllUsers } from './use-cases/findAll';
@@ -118,7 +117,7 @@ export class UserController {
         return response.status(404).send('No user found');
       }
 
-      return response.status(200).send('User updated');
+      return response.status(200).send(res.message);
     } catch (error) {
       console.log(error);
       return response.status(500).send('Internal server error');
@@ -140,7 +139,7 @@ export class UserController {
         return response.status(404).send(res.message);
       }
 
-      return response.status(200).send('User deleted sucessfully');
+      return response.status(200).send(res.message);
     } catch (error) {
       console.log(error);
       return response.status(500).send('Internal server error');

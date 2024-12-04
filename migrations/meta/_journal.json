@@ -22,6 +22,13 @@
       "when": 1733259629950,
       "tag": "0002_perpetual_piledriver",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1733320777074,
+      "tag": "0003_curvy_ender_wiggin",
+      "breakpoints": true
     }
   ]
 }
