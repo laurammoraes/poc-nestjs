@@ -12,7 +12,6 @@ export class BaseService {
     }
 
     async getAll(entity){
-        
         return await this.baseRepository.getAll(entity)
     }
 

@@ -4,7 +4,6 @@ import { UserController } from './user.controller';
 
 describe('UserService', () => {
   let service: UserService;
-  let controller: UserController;
   let mockDb: any;
 
   beforeEach(async () => {

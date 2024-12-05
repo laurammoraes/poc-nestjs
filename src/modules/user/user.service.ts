@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { users } from 'src/database/schemas/schema';
-import { and, ConsoleLogWriter, eq, isNull } from 'drizzle-orm';
+import { and, eq, isNull } from 'drizzle-orm';
 import { GetResponseDto } from './dto/get-response.dto';
 
 @Injectable()

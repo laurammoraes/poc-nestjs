@@ -17,7 +17,7 @@ export class CreateUser {
       createUserDto.phone,
     );
 
-    if (!validatePhone) {
+    if (validatePhone) {
       return {
         status: 409,
         message: 'Phone number exists in our database',

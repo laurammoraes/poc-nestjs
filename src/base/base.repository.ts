@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BaseAbstractRepository } from './base.abstract.repository';
+
 import { and, eq, isNull } from 'drizzle-orm';
 
 @Injectable()
-export class BaseRepository extends BaseAbstractRepository<void> {
-  constructor(@Inject('DATABASE_CONNECTION') private db) {
-    super();
-  }
+export class BaseRepository {
+  constructor(@Inject('DATABASE_CONNECTION') private db) {}
 
   async create(data, entity) {
     await this.db.insert(entity).values(data).execute();

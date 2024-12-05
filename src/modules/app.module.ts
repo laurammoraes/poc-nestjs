@@ -6,7 +6,7 @@ import { BaseModule } from 'src/base/base.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env.development'],
+      envFilePath: ['.env'],
     }),
     UserModule,
     BaseModule,

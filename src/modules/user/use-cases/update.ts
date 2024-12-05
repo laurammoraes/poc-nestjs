@@ -18,7 +18,7 @@ export class UpdateUser {
   ): Promise<ResponseDto> {
     const validatePhone = await this.userService.validatePhoneOnDatabase(phone);
 
-    if (!validatePhone) {
+    if (validatePhone) {
       return {
         status: 404,
         message: 'User not found',

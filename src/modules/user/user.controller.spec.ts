@@ -171,9 +171,5 @@ describe('UserController', () => {
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
-
-  
-
-
   
 });
