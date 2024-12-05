@@ -113,12 +113,29 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a user', async () => {
-      const result = await controller.create(mockResponse);
+      const createUserDto = {
+        name: 'Laura',
+        email: 'laurammoraes2@gmail.com',
+        phone: '19993417478',
+        dateOfBirth: '02091999',
+        address: '',
+        city: '',
+        state: ''
+      };
+      const result = await controller.create(createUserDto, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
 
+
+  describe('findOne', () => {
+    it('should return an array of details of a user', async () => {
+      const result = await controller.findOneById('4', mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
+    });
+  });
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
@@ -128,12 +145,35 @@ describe('UserController', () => {
     });
   });
 
+  describe('Update', () => {
+    it('should update a user', async () => {
 
-  describe('findAll', () => {
-    it('should return an array of users', async () => {
-      const result = await controller.findAll(mockResponse);
+      const updateUserDto = {
+        name: 'Laura',
+        email: 'laurammoraes2@gmail.com',
+        phone: '19993417478',
+        dateOfBirth: '02091999',
+        address: '',
+        city: '',
+        state: ''
+      };
+      const result = await controller.update('19993417478', updateUserDto, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
+
+
+  describe('Remove', () => {
+    it('should remove a user', async () => {
+      const result = await controller.remove('19993417478', mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalled();
+    });
+  });
+
+  
+
+
+  
 });
