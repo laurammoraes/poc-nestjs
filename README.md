@@ -1,83 +1,102 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projeto de Estudo NestJS com Princípios SOLID
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
+Este é um projeto de estudo desenvolvido com NestJS, implementando um CRUD de usuários com foco na aplicação dos princípios SOLID e boas práticas de desenvolvimento.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias Utilizadas
+- NestJS
+- Drizzle ORM
+- PostgreSQL
+- Swagger
+- Jest (Testes)
 
-## Description
-
-Study project of framework Nest.js.
-
-## Installation
-
-```bash
-$ npm install
+## Estrutura do Projeto
+```plaintext
+src/
+├── base/
+│   ├── base.module.ts
+│   ├── base.repository.ts
+│   └── base.service.ts
+├── database/
+│   ├── drizzle.ts
+│   └── schemas/
+├── modules/
+│   └── user/
+│       ├── dto/
+│       ├── use-cases/
+│       ├── user.controller.ts
+│       ├── user.service.ts
+│       └── user.module.ts
+└── main.ts
 ```
 
-## Running the app
+### Princípios SOLID Aplicados
 
-```bash
-# development
-$ npm run start
+1. **Single Responsibility Principle (SRP)**
+   - **Base Repository**: Responsável apenas pela comunicação com o banco de dados.
+   - **Use Cases**: Cada caso de uso em arquivo separado com responsabilidade única.
 
-# watch mode
-$ npm run start:dev
+2. **Open/Closed Principle (OCP)**
+   - **Base Classes**: Estrutura extensível através de classes base.
+   - **DTOs**: Sistema de DTOs extensível usando herança.
+   - **Decorators**: Uso de decoradores para adicionar funcionalidades sem modificar código existente.
 
-# production mode
-$ npm run start:prod
+3. **Liskov Substitution Principle (LSP)**
+   - **Repository Pattern**: Implementação consistente através de classes base.
+   - **Service Layer**: Serviços seguem contratos bem definidos.
+   - **DTOs**: Hierarquia de DTOs respeitando o princípio LSP.
+
+4. **Interface Segregation Principle (ISP)**
+   - **DTOs Específicos**: DTOs separados para cada operação.
+   - **Controllers**: Endpoints específicos para cada operação.
+
+5. **Dependency Inversion Principle (DIP)**
+   - **Injeção de Dependências**: Uso do sistema de DI do NestJS.
+   - **Módulos**: Configuração de providers através de módulos.
+
+### Arquitetura
+
+#### Container e Injeção de Dependências
+- Configuração centralizada de dependências.
+- Uso de providers com factory functions.
+- Singleton pattern para conexão com banco de dados.
+
+#### Camadas da Aplicação
+1. **Controllers**: Manipulação de requisições HTTP.
+2. **Use Cases**: Lógica de negócio isolada.
+3. **Services**: Serviços reutilizáveis.
+4. **Repositories**: Acesso a dados.
+
+### Testes
+- Testes unitários implementados.
+- Mocks para dependências externas.
+- Cobertura de casos de sucesso e erro.
+
+### Documentação API
+- Swagger implementado.
+- Decoradores para documentação.
+- Descrições de endpoints e DTOs.
+
+## Instalação e Execução
+```plaintext
+# Instalação
+npm install
+
+# Desenvolvimento
+npm run start:dev
+
+# Produção
+npm run start:prod
+
+# Testes
+npm run test
 ```
+### Boas Práticas
+- **Error Handling**: Tratamento consistente de erros.
+- **Validação**: Uso de `class-validator`.
+- **Logging**: Sistema de logs estruturado.
+- **Configuração**: Variáveis de ambiente.
+- **Formatação**: ESLint e Prettier configurados.
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## When you make commits
-
-```bash
-# Lint and autofix with eslint
-$ npm run lint
-
-# Format with prettier
-$ npm run format
-```
-
-## Tecnologies
-
-### ORM
-
-- Drizzle - <a href="https://orm.drizzle.team/">https://orm.drizzle.team/</a>
-
-Why Drizzle?
-
-Drizzle its a good orm small and simple aplications, and this project is it.
-
-## Author
-
-- Author - <a href="https://www.linkedin.com/in/laura-moraes-20912114b/">Laura Moraes</a>
+### Autor
+Laura Moraes - <a href="https://www.linkedin.com/in/laura-moraes-20912114b/">LinkedIn</a>
