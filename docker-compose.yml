@@ -11,8 +11,6 @@ services:
     volumes:
       - poc-nestjs-postgresql-postgresql:/var/lib/postgresql/data
 
-version: '3'
-
 volumes:
   poc-nestjs-postgresql-postgresql:
     driver: local
