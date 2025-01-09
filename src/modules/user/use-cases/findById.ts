@@ -1,7 +1,7 @@
 import { BaseService } from 'src/base/base.service';
 import { GetResponseDto } from '../dto/get-response.dto';
 import { ResponseDto } from 'src/modules/user/dto/response.dto';
-import { users } from 'src/database/schemas/schema';
+import { users } from 'src/database/schemas/schema_ols';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

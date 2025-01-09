@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { users } from 'src/database/schemas/schema';
+import { users } from 'src/database/schemas/schema_ols';
 import { and, eq, isNull } from 'drizzle-orm';
 import { GetResponseDto } from './dto/get-response.dto';
 
@@ -15,8 +15,6 @@ export class UserService {
       .from(users)
       .where(and(eq(users.phone, phone), isNull(users.deletedAt)))
       .execute();
-
-     
 
     if (validatePhone && validatePhone.length > 0) {
       return true;

@@ -1,6 +1,6 @@
 import { BaseService } from 'src/base/base.service';
 import { UserService } from '../user.service';
-import { users } from 'src/database/schemas/schema';
+import { users } from 'src/database/schemas/schema_ols';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { ResponseDto } from 'src/modules/user/dto/response.dto';
 import { Injectable } from '@nestjs/common';

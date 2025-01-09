@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import * as schema from './schemas/schema';
+import * as schema from './schemas/schema_ols';
 
 let dbInstance: ReturnType<typeof drizzle>;
 
