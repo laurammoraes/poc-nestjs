@@ -20,7 +20,7 @@ class UserDto {
 
   @ApiProperty()
   @IsString()
-  dateOfBirth: string;
+  date_of_birth: string;
 
   @ApiProperty()
   @IsString()

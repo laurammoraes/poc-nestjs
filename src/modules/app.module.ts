@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { BaseModule } from 'src/base/base.module';
 
 @Module({
   imports: [
@@ -9,7 +8,6 @@ import { BaseModule } from 'src/base/base.module';
       envFilePath: ['.env'],
     }),
     UserModule,
-    BaseModule,
   ],
   controllers: [],
   providers: [],
