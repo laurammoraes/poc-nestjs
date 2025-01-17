@@ -1,41 +1,53 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Validate,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { ValidatePhone } from './validate-phone.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
   @IsOptional()
-  name: string;
+  readonly name: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Email must be a string' })
+  @IsEmail()
   @IsOptional()
-  email: string;
+  readonly email: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Phone must be a string' })
+  @Validate(ValidatePhone)
+  @MaxLength(255)
   @IsOptional()
-  phone: string;
+  readonly phone: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Date of birth must be a string' })
   @IsOptional()
-  dateOfBirth: string;
+  @MaxLength(255)
+  readonly dateOfBirth: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Address must be a string' })
   @IsOptional()
-  address: string;
+  readonly address: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'City must be a string' })
   @IsOptional()
-  city: string;
+  readonly city: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'State must be a string' })
   @IsOptional()
-  state: string;
+  readonly state: string;
 }
