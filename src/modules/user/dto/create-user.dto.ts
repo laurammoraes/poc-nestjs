@@ -1,33 +1,56 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  Validate,
+} from 'class-validator';
+import { ValidatePhone } from './validate-phone.dto';
+import { Transform } from 'class-transformer';
 
 export class CreateUserDto {
   @ApiProperty()
-  @IsString()
-  name: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @Transform(({ value }) => value.toLowerCase())
+  readonly name: string;
 
   @ApiProperty()
-  @IsString()
-  email: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @IsEmail()
+  @Transform(({ value }) => value.toLowerCase())
+  readonly email: string;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @Validate(ValidatePhone)
   @IsNotEmpty()
-  phone: string;
+  readonly phone: string;
 
   @ApiProperty()
-  @IsString()
-  dateOfBirth: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  readonly dateOfBirth: string;
 
   @ApiProperty()
-  @IsString()
-  address: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @Transform(({ value }) => value.toLowerCase())
+  readonly address: string;
 
   @ApiProperty()
-  @IsString()
-  city: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @Transform(({ value }) => value.toLowerCase())
+  readonly city: string;
 
   @ApiProperty()
-  @IsString()
-  state: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  @Transform(({ value }) => value.toLowerCase())
+  readonly state: string;
 }

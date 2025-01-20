@@ -3,12 +3,12 @@ import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class ResponseDto {
   @ApiProperty()
-  @IsInt()
+  @IsInt({ message: 'Status must be a number' })
   @IsNotEmpty()
-  status: number;
+  readonly status: number;
 
   @ApiProperty()
-  @IsString()
+  @IsString({ message: 'Message must be a string' })
   @IsNotEmpty()
-  message: string;
+  readonly message: string;
 }
