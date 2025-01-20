@@ -120,14 +120,13 @@ describe('UserController', () => {
         dateOfBirth: '02091999',
         address: '',
         city: '',
-        state: ''
+        state: '',
       };
       const result = await controller.create(createUserDto, mockResponse);
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
-
 
   describe('findOne', () => {
     it('should return an array of details of a user', async () => {
@@ -147,7 +146,6 @@ describe('UserController', () => {
 
   describe('Update', () => {
     it('should update a user', async () => {
-
       const updateUserDto = {
         name: 'Laura',
         email: 'laurammoraes2@gmail.com',
@@ -155,14 +153,17 @@ describe('UserController', () => {
         dateOfBirth: '02091999',
         address: '',
         city: '',
-        state: ''
+        state: '',
       };
-      const result = await controller.update('19993417478', updateUserDto, mockResponse);
+      const result = await controller.update(
+        '19993417478',
+        updateUserDto,
+        mockResponse,
+      );
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
-
 
   describe('Remove', () => {
     it('should remove a user', async () => {
@@ -171,5 +172,4 @@ describe('UserController', () => {
       expect(mockResponse.json).toHaveBeenCalled();
     });
   });
-  
 });

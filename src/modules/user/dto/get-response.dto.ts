@@ -1,43 +1,61 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  Validate,
+} from 'class-validator';
+import { ValidatePhone } from './validate-phone.dto';
 
 class UserDto {
   @ApiProperty()
-  @IsInt()
-  id: number;
+  @IsInt({ message: 'Id must be a number' })
+  @MaxLength(255)
+  readonly id: number;
 
   @ApiProperty()
-  @IsString()
-  name: string;
+  @IsString({ message: 'Name must be a string' })
+  @MaxLength(255)
+  readonly name: string;
 
   @ApiProperty()
-  @IsString()
-  email: string;
+  @IsString({ message: 'Email must be a string' })
+  @IsEmail()
+  @MaxLength(255)
+  readonly email: string;
 
   @ApiProperty()
-  @IsString()
-  phone: string;
+  @IsString({ message: 'Phone must be a string' })
+  @Validate(ValidatePhone)
+  @MaxLength(255)
+  readonly phone: string;
 
   @ApiProperty()
-  @IsString()
-  dateOfBirth: string;
+  @IsString({ message: 'Date of birth must be a string' })
+  @MaxLength(255)
+  readonly date_of_birth: string;
 
   @ApiProperty()
-  @IsString()
-  address: string;
+  @IsString({ message: 'Address must be a string' })
+  @MaxLength(255)
+  readonly address: string;
 
   @ApiProperty()
-  @IsString()
-  city: string;
+  @IsString({ message: 'City must be a string' })
+  @MaxLength(255)
+  readonly city: string;
 
   @ApiProperty()
-  @IsString()
-  state: string;
+  @IsString({ message: 'State must be a string' })
+  @MaxLength(255)
+  readonly state: string;
 }
 
 export class GetResponseDto {
   @ApiProperty()
-  @IsInt()
+  @IsInt({ message: 'Status must be a number' })
   @IsNotEmpty()
   status: number;
 

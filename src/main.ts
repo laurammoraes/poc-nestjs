@@ -2,12 +2,22 @@ import * as dotenv from 'dotenv';
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules/app.module';
-import { connectOrm } from './database/drizzle';
+
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Project of study')
@@ -20,7 +30,6 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await connectOrm();
   await app.listen(3000);
 }
 bootstrap();

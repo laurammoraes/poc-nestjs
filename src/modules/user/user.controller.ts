@@ -11,22 +11,13 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
-import { CreateUser } from './use-cases/create';
-import { FindAllUsers } from './use-cases/findAll';
-import { FindUserById } from './use-cases/findById';
-import { RemoveUser } from './use-cases/remove';
-import { UpdateUser } from './use-cases/update';
+
 import { ApiResponse } from '@nestjs/swagger';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(
-    private readonly createUser: CreateUser,
-    private readonly findAllUsers: FindAllUsers,
-    private readonly findUserById: FindUserById,
-    private readonly removeUser: RemoveUser,
-    private readonly updateUser: UpdateUser,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   @ApiResponse({ status: 200, description: 'User created successfully' })
@@ -40,7 +31,7 @@ export class UserController {
     @Res() response: Response,
   ) {
     try {
-      const create = await this.createUser.execute(createUserDto);
+      const create = await this.userService.create(createUserDto);
 
       if (create.status === 409) {
         return response.status(409).send(create.message);
@@ -62,7 +53,7 @@ export class UserController {
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async findAll(@Res() response: Response) {
     try {
-      const res = await this.findAllUsers.execute();
+      const res = await this.userService.findAll();
 
       if (res.status === 404) {
         return response.status(404).send('No user found');
@@ -85,7 +76,7 @@ export class UserController {
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async findOneById(@Query('id') id: string, @Res() response: Response) {
     try {
-      const res = await this.findUserById.execute(+id);
+      const res = await this.userService.findOne(+id);
 
       if (res.status === 404) {
         return response.status(404).send('No user found');
@@ -111,7 +102,7 @@ export class UserController {
     @Res() response: Response,
   ) {
     try {
-      const res = await this.updateUser.execute(phone, updateUserDto);
+      const res = await this.userService.update(phone, updateUserDto);
 
       if (res.status === 404) {
         return response.status(404).send('No user found');
@@ -133,7 +124,7 @@ export class UserController {
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async remove(@Query('phone') phone: string, @Res() response: Response) {
     try {
-      const res = await this.removeUser.execute(phone);
+      const res = await this.userService.delete(phone);
 
       if (res.status === 404) {
         return response.status(404).send(res.message);
