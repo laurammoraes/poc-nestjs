@@ -36,21 +36,6 @@ class UserDto {
   @IsString({ message: 'Date of birth must be a string' })
   @MaxLength(255)
   readonly date_of_birth: string;
-
-  @ApiProperty()
-  @IsString({ message: 'Address must be a string' })
-  @MaxLength(255)
-  readonly address: string;
-
-  @ApiProperty()
-  @IsString({ message: 'City must be a string' })
-  @MaxLength(255)
-  readonly city: string;
-
-  @ApiProperty()
-  @IsString({ message: 'State must be a string' })
-  @MaxLength(255)
-  readonly state: string;
 }
 
 export class GetResponseDto {
