@@ -5,7 +5,7 @@ Este é um projeto de estudo desenvolvido com NestJS, implementando um CRUD de u
 
 ## Tecnologias Utilizadas
 - NestJS
-- Drizzle ORM
+- Prisma ORM
 - PostgreSQL
 - Swagger
 - Jest (Testes)
@@ -21,36 +21,36 @@ src/
 │   ├── drizzle.ts
 │   └── schemas/
 ├── modules/
+│   ├── prisma/
+│   │   ├── prisma.service.ts
+│   │   └── prisma.module.ts
 │   └── user/
 │       ├── dto/
 │       ├── use-cases/
+│       ├── user.controller.spec.ts
 │       ├── user.controller.ts
+│       ├── user.service.spec.ts
 │       ├── user.service.ts
 │       └── user.module.ts
+├── app.module.ts
 └── main.ts
 ```
 
 ### Princípios SOLID Aplicados
-
-1. **Single Responsibility Principle (SRP)**
-   - **Base Repository**: Responsável apenas pela comunicação com o banco de dados.
-   - **Use Cases**: Cada caso de uso em arquivo separado com responsabilidade única.
-
-2. **Open/Closed Principle (OCP)**
-   - **Base Classes**: Estrutura extensível através de classes base.
+  
+1. **Open/Closed Principle (OCP)**
    - **DTOs**: Sistema de DTOs extensível usando herança.
    - **Decorators**: Uso de decoradores para adicionar funcionalidades sem modificar código existente.
 
-3. **Liskov Substitution Principle (LSP)**
-   - **Repository Pattern**: Implementação consistente através de classes base.
+2. **Liskov Substitution Principle (LSP)**
    - **Service Layer**: Serviços seguem contratos bem definidos.
    - **DTOs**: Hierarquia de DTOs respeitando o princípio LSP.
 
-4. **Interface Segregation Principle (ISP)**
+3. **Interface Segregation Principle (ISP)**
    - **DTOs Específicos**: DTOs separados para cada operação.
    - **Controllers**: Endpoints específicos para cada operação.
 
-5. **Dependency Inversion Principle (DIP)**
+4. **Dependency Inversion Principle (DIP)**
    - **Injeção de Dependências**: Uso do sistema de DI do NestJS.
    - **Módulos**: Configuração de providers através de módulos.
 
@@ -77,16 +77,19 @@ src/
 - Decoradores para documentação.
 - Descrições de endpoints e DTOs.
 
+Link do Swagger: http://localhost:3000/api
+
 ## Instalação e Execução
 ```plaintext
 # Instalação
 npm install
 
+# Start banco de dados
+docker compose up -D
+
 # Desenvolvimento
 npm run start:dev
 
-# Produção
-npm run start:prod
 
 # Testes
 npm run test
