@@ -53,6 +53,27 @@ class UserDto {
   readonly state: string;
 }
 
+class PaginationDto {
+  @ApiProperty()
+  @IsInt({ message: 'Total must be a number' })
+  @IsNotEmpty()
+  readonly total: number;
+
+  @ApiProperty()
+  @IsInt({ message: 'Limit must be a number' })
+  @IsNotEmpty()
+  readonly limit: number;
+
+  @ApiProperty()
+  @IsInt({ message: 'Page must be a number' })
+  @IsNotEmpty()
+  readonly page: number;
+
+  @ApiProperty()
+  @IsInt({ message: 'TotalPages must be a number' })
+  @IsNotEmpty()
+  readonly totalPages: number;
+}
 export class GetAllResponseDto {
   @IsInt({ message: 'Status must be a number' })
   @IsNotEmpty()
@@ -60,4 +81,7 @@ export class GetAllResponseDto {
 
   @IsNotEmpty()
   readonly data: UserDto[];
+
+  @IsNotEmpty()
+  readonly pagination: PaginationDto;
 }

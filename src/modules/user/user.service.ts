@@ -88,8 +88,14 @@ export class UserService {
     };
   }
 
-  async findAll(): Promise<GetAllResponseDto | ResponseDto> {
-    const res = await this.prisma.users.findMany();
+  async findAll(limit, page): Promise<GetAllResponseDto | ResponseDto> {
+    const offset = (page - 1) * limit;
+    const res = await this.prisma.users.findMany({
+      take: limit,
+      skip: offset,
+    });
+
+    const totalCount = await this.prisma.users.count(); // Total de usuários para calcular páginas
 
     if (res.length === 0) {
       return { status: 404, message: 'No user found' };
@@ -109,6 +115,12 @@ export class UserService {
     return {
       status: 200,
       data,
+      pagination: {
+        total: totalCount,
+        page,
+        limit,
+        totalPages: Math.ceil(totalCount / limit),
+      },
     };
   }
 
