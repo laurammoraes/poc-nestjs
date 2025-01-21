@@ -7,6 +7,7 @@ import {
   Delete,
   Res,
   Query,
+  Param,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -51,9 +52,13 @@ export class UserController {
     description: 'No user found',
   })
   @ApiResponse({ status: 500, description: 'Internal server error' })
-  async findAll(@Res() response: Response) {
+  async findAll(
+    @Param() limit: number,
+    @Param() page: number,
+    @Res() response: Response,
+  ) {
     try {
-      const res = await this.userService.findAll();
+      const res = await this.userService.findAll(limit, page);
 
       if (res.status === 404) {
         return response.status(404).send('No user found');
