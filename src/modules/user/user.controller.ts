@@ -16,7 +16,7 @@ import { Response } from 'express';
 import { ApiResponse } from '@nestjs/swagger';
 import { UserService } from './user.service';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -72,14 +72,14 @@ export class UserController {
     }
   }
 
-  @Get('/find-by-id')
+  @Get('/:id')
   @ApiResponse({ status: 200, description: 'Return array with user' })
   @ApiResponse({
     status: 404,
     description: 'No user found',
   })
   @ApiResponse({ status: 500, description: 'Internal server error' })
-  async findOneById(@Query('id') id: string, @Res() response: Response) {
+  async findOneById(@Param('id') id: string, @Res() response: Response) {
     try {
       const res = await this.userService.findOne(+id);
 
@@ -94,7 +94,7 @@ export class UserController {
     }
   }
 
-  @Patch('/update-by-phone')
+  @Patch('/phone/:phone')
   @ApiResponse({ status: 200, description: 'User updated' })
   @ApiResponse({
     status: 404,
@@ -102,7 +102,7 @@ export class UserController {
   })
   @ApiResponse({ status: 500, description: 'Internal server error' })
   async update(
-    @Query('phone') phone: string,
+    @Param('phone') phone: string,
     @Body() updateUserDto: UpdateUserDto,
     @Res() response: Response,
   ) {
@@ -120,14 +120,14 @@ export class UserController {
     }
   }
 
-  @Delete('/delete-by-phone')
+  @Delete('/phone/:phone')
   @ApiResponse({ status: 200, description: 'User deleted sucessfully' })
   @ApiResponse({
     status: 404,
     description: 'No user found',
   })
   @ApiResponse({ status: 500, description: 'Internal server error' })
-  async remove(@Query('phone') phone: string, @Res() response: Response) {
+  async remove(@Param('phone') phone: string, @Res() response: Response) {
     try {
       const res = await this.userService.delete(phone);
 
