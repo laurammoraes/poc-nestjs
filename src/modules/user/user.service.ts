@@ -107,9 +107,6 @@ export class UserService {
       email: user.email,
       phone: user.phone,
       date_of_birth: user.date_of_birth,
-      address: user.address,
-      city: user.city,
-      state: user.state,
     }));
 
     return {
@@ -159,9 +156,6 @@ export class UserService {
         email: true,
         phone: true,
         date_of_birth: true,
-        address: true,
-        city: true,
-        state: true,
       },
       where: { phone, deleted_at: null },
     });
